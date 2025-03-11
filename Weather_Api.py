@@ -35,3 +35,4 @@ def get_weather(city):
 city = input("Enter city name: ")
 weather_info = get_weather(city)
 print(weather_info)
+print("This is the Weather API")
