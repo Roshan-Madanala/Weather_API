@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
 
 # ✅ PyTest Function
-@pytest.mark.parametrize("city", ["Hyderabad", "Mumbai", "Delhi"])
+@pytest.mark.parametrize("city", ["Hyderabad", "Mumbai", "Delhi", "Tokyo", "Berlin", "Moscow", "Yakutsk"])
 def test_weather_api(city):
     """Tests the OpenWeather API response for various cities."""
     params = {"q": city, "appid": API_KEY, "units": "metric"}
