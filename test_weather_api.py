@@ -64,3 +64,4 @@ def test_weather_api(city):
     assert "weather" in data, "Weather description missing"
 
     print(f"✅ Test passed for {city}: {data['main']['temp']}°C")
+    print("This is Code related to weather api using pytest")
