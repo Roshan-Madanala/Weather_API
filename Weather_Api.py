@@ -1,23 +1,30 @@
 import requests
+import os
+from dotenv import load_dotenv
+
+# Load API Key from Environment Variables
+load_dotenv()
+API_KEY = os.getenv("OPENWEATHER_API_KEY", "203b232dc4cc7e522a39f092a05e07d2")
+
+# Define the base API URL
+BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 
 def get_weather(city):
-    # OpenWeather API Key (Replace with your own API key)
-    weather_api_key = "203b232dc4cc7e522a39f092a05e07d2"
-    weather_url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={weather_api_key}&units=metric"
+    """Fetches and returns weather details for a given city."""
+    weather_url = f"{BASE_URL}?q={city}&appid={API_KEY}&units=metric"
 
-    response = requests.get(weather_url)
-    if response.status_code == 200:
+    try:
+        response = requests.get(weather_url)
+        response.raise_for_status()  # Raises HTTPError for bad responses (4xx, 5xx)
+
         data = response.json()
-
-        # Extracting required details
         temp = data['main']['temp']
         desc = data['weather'][0]['description']
         humidity = data['main']['humidity']
         wind_speed = data['wind']['speed']
         pressure = data['main']['pressure']
-        temp_fahrenheit = (temp * 9 / 5) + 32  # Convert to Fahrenheit
+        temp_fahrenheit = (temp * 9 / 5) + 32
 
-        # Formatting output
         weather_info = (
             f"Weather in {city}:\n"
             f"🌡 Temperature: {temp}°C / {temp_fahrenheit:.2f}°F\n"
@@ -27,13 +34,10 @@ def get_weather(city):
             f"🔵 Pressure: {pressure} hPa"
         )
         return weather_info
-    else:
-        return "Invalid city name or API error"
 
+    except requests.exceptions.RequestException as e:
+        return f"API request error: {e}"
 
-# Get user input
-city = input("Enter city name: ")
-weather_info = get_weather(city)
-print(weather_info)
-print("This is the Weather API!!")
-
+if __name__ == "__main__":
+    city = input("Enter city name: ")
+    print(get_weather(city))
