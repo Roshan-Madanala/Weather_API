@@ -17,6 +17,8 @@ jobs:
         with:
           python-version: '3.9'
       - name: Install dependencies
-        run: pip install pytest requests
+        run: pip install pytest requests python-dotenv
       - name: Run tests
+        env:
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
         run: pytest test_weather_api.py
