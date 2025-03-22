@@ -35,9 +35,5 @@ def get_weather(city):
 city = input("Enter city name: ")
 weather_info = get_weather(city)
 print(weather_info)
-<<<<<<< HEAD
 print("This is the Weather API!!")
-=======
-print("This is the weather API!!")
-print("Thios line added via GitHub")
->>>>>>> c7c70e92fd9e66b40a0ce04f8ea272d6e019cfa0
+
