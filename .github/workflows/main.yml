@@ -1,1 +1,32 @@
+name: API Testing
 
+on:
+  push:
+    branches:
+      - main  # Runs tests on pushing to the main branch
+  pull_request:
+    branches:
+      - main  # Runs tests on PRs to the main branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest requests python-dotenv
+
+      - name: Run API tests
+        run: pytest test_weather_api.py
+        env:
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
