@@ -39,5 +39,5 @@ def get_weather(city):
         return f"API request error: {e}"
 
 if __name__ == "__main__":
-    city = input("Enter city name: ")
+    city = "hyderabad"
     print(get_weather(city))
