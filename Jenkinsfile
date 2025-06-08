@@ -16,7 +16,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'pytest tests/ --maxfail=1 --disable-warnings --html=report.html'
+                bat 'pytest test_weather_api.py --maxfail=1 --disable-warnings --html=report.html'
             }
         }
 
